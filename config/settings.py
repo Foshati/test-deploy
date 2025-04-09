@@ -140,3 +140,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# تشخیص درست هدرهای Cloudflare
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# تنظیم سایر تنظیمات امنیتی
+SECURE_SSL_REDIRECT = False  # Cloudflare این کار را انجام می‌دهد
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
