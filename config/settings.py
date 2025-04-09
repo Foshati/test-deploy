@@ -29,8 +29,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-5921i*xlb6_&$%_easmed
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
-if ALLOWED_HOSTS == ['*']:  # در صورتی که متغیر محیطی خالی باشد
-    ALLOWED_HOSTS = ['*']  # تنظیم پیش‌فرض برای محیط توسعه
+ALLOWED_HOSTS = [
+    'teljoo.com',
+    'www.teljoo.com',
+    '139.59.246.117',  # IP سرور شما
+    'localhost'        # برای تست‌های محلی
+]
 
 
 # Application definition
@@ -43,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+        'whitenoise.runserver_nostatic',
+
 ]
 
 MIDDLEWARE = [
