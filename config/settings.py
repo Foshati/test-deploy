@@ -36,6 +36,7 @@ ALLOWED_HOSTS = [
     'localhost'        # برای تست‌های محلی
 ]
 
+CSRF_TRUSTED_ORIGINS= ["https://teljoo.com"]
 
 # Application definition
 
@@ -53,7 +54,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-        'whitenoise.middleware.WhiteNoiseMiddleware',  # برای مدیریت فایل‌های استاتیک
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -162,3 +163,4 @@ CSRF_TRUSTED_ORIGINS = [
     'https://teljoo.com',
     'https://www.teljoo.com',
 ]
+STATICSTORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
