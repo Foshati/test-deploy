@@ -153,6 +153,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # تنظیم سایر تنظیمات امنیتی
-SECURE_SSL_REDIRECT = False  # Cloudflare این کار را انجام می‌دهد
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'False') == 'True'
+SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE', 'True') == 'True'
+CSRF_COOKIE_SECURE = os.environ.get('CSRF_COOKIE_SECURE', 'True') == 'True'
+
+# Trusted origins for CSRF
+CSRF_TRUSTED_ORIGINS = [
+    'https://teljoo.com',
+    'https://www.teljoo.com',
+]
