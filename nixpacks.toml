@@ -1,22 +1,38 @@
 [phases.setup]
-nixPkgs = ["postgresql"]
+nixPkgs = [
+    "python311",
+    "python311Packages.pip",
+    "python311Packages.setuptools",
+    "python311Packages.wheel",
+    "python311Packages.psycopg2",
+    "python311Packages.gunicorn",
+    "postgresql",
+    "gcc",
+    "libpqxx"
+]
 
 [phases.install]
 cmds = [
+    "python -m pip install --upgrade pip",
     "pip install -r requirements.txt",
 ]
 
 [phases.build]
 cmds = [
     "python manage.py collectstatic --noinput",
+    "python manage.py migrate",
 ]
 
 [start]
-cmd = "gunicorn config.wsgi:application --bind 0.0.0.0:$PORT"
+cmd = "gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3 --timeout 120"
 
 [processes]
-web = "gunicorn config.wsgi:application --bind 0.0.0.0:$PORT"
+web = "gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3 --timeout 120"
 
 [environment]
 PYTHONUNBUFFERED = "1"
-DJANGO_SETTINGS_MODULE = "config.settings" 
+DJANGO_SETTINGS_MODULE = "config.settings"
+PYTHONPATH = "/app"
+DJANGO_DEBUG = "False"
+DJANGO_ALLOWED_HOSTS = "*"
+DATABASE_URL = "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}" 
