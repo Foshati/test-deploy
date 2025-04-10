@@ -32,12 +32,16 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 ALLOWED_HOSTS = [
     'teljoo.com',
     'www.teljoo.com',
-    '139.59.246.117',  # IP سرور شما
-    'localhost'        # برای تست‌های محلی
+    'web-production-f90c8.up.railway.app',  # Update to your new Railway URL
+    '139.59.246.117',
+    'localhost'
 ]
 
-CSRF_TRUSTED_ORIGINS= ["https://teljoo.com"]
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://teljoo.com',
+    'https://www.teljoo.com',
+    'https://web-production-f90c8.up.railway.app',  # Add your new Railway URL with https://
+]
 # Application definition
 
 INSTALLED_APPS = [
