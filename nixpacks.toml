@@ -1,16 +1,19 @@
 [phases.setup]
-nixPkgs = ["python311", "python311Packages.pip", "python311Packages.gunicorn", "postgresql"]
+nixPkgs = ["python311", "python311Packages.pip", "python311Packages.virtualenv", "python311Packages.gunicorn", "postgresql"]
 
 [phases.install]
 cmds = [
+  "python -m venv /opt/venv",
+  "source /opt/venv/bin/activate",
   "pip install -r requirements.txt"
 ]
 
 [phases.build]
 cmds = [
+  "source /opt/venv/bin/activate",
   "python manage.py collectstatic --noinput",
   "python manage.py migrate"
 ]
 
 [start]
-cmd = "gunicorn myproject.wsgi:application --bind=0.0.0.0:$PORT --workers=3 --timeout=120"
+cmd = "source /opt/venv/bin/activate && gunicorn myproject.wsgi:application --bind=0.0.0.0:$PORT --workers=3 --timeout=120"
